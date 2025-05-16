@@ -1,0 +1,237 @@
+{% extends 'base.html' %}
+
+{% block title %}Mi Cuenta - Ferretería "La U"{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/cliente/mi_cuenta.css') }}">
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="perfil-container">
+        <div class="perfil-header">
+            <div class="perfil-foto">
+                {% if cliente.foto_perfil %}
+                <img src="{{ url_for('static', filename='uploads/perfiles/' + cliente.foto_perfil) }}" alt="Foto de perfil">
+                {% else %}
+                <i class="fas fa-user-circle"></i>
+                {% endif %}
+                <button id="editarFotoPerfilBtn" class="cambiar-foto-btn" title="Cambiar foto">
+                    <i class="fas fa-camera"></i>
+                </button>
+            </div>
+            <div class="perfil-info">
+                <h1 class="perfil-nombre">{{ cliente.nombre }} {{ cliente.apellido|default('') }}</h1>
+                <div class="perfil-cargo">Cliente</div>
+                <div class="perfil-detalle">
+                    <div class="perfil-label">Email:</div>
+                    <div class="perfil-value">{{ cliente.email }}</div>
+                    <div class="perfil-label">Teléfono:</div>
+                    <div class="perfil-value">{{ cliente.telefono|default('No especificado') }}</div>
+                    <div class="perfil-label">Dirección:</div>
+                    <div class="perfil-value">{{ cliente.direccion|default('No especificada') }}</div>
+                    <div class="perfil-label">Fecha de registro:</div>
+                    <div class="perfil-value">{{ cliente.fecha_registro.strftime('%d/%m/%Y') if cliente.fecha_registro else 'No disponible' }}</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="acciones-container">
+            <a href="{{ url_for('clientes.editar', cliente_id=cliente.id) }}" class="btn">
+                <i class="fas fa-user-edit"></i> Editar Perfil
+            </a>
+            <a href="{{ url_for('auth.cambiar_password') }}" class="btn">
+                <i class="fas fa-key"></i> Cambiar Contraseña
+            </a>
+            <a href="{{ url_for('tienda.index') }}" class="btn">
+                <i class="fas fa-shopping-cart"></i> Ir a Comprar
+            </a>
+        </div>
+        
+        <h2 class="stats-section-title">
+            <i class="fas fa-chart-line"></i> Estadísticas de Desempeño
+        </h2>
+        
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-shopping-bag"></i>
+                </div>
+                <h2>{{ total_compras|default(0) }}</h2>
+                <p>Compras Realizadas</p>
+                <div class="stat-footer">Total: ${{ (total_gastado|default(0))|round(2) }}</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <h2>{{ total_reparaciones|default(0) }}</h2>
+                <p>Servicios Solicitados</p>
+                <div class="stat-footer">Último: {{ ultima_reparacion.fecha_solicitud.strftime('%d/%m/%Y') if ultima_reparacion else 'N/A' }}</div>
+            </div>
+        </div>
+    
+        <!-- Historial de Compras -->
+        <div class="historial-container">
+            <h2 class="historial-titulo">
+                <i class="fas fa-shopping-bag"></i>
+                Últimas Compras
+            </h2>
+            {% if ultimas_compras %}
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Productos</th>
+                            <th>Total</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for compra in ultimas_compras %}
+                        <tr>
+                            <td>{{ compra.fecha.strftime('%d/%m/%Y') }}</td>
+                            <td>{{ compra.total_productos }} productos</td>
+                            <td>${{ compra.total|round(2) }}</td>
+                            <td>
+                                <span class="badge bg-{{ compra.estado|lower }}">
+                                    {{ compra.estado }}
+                                </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="empty-state">
+                <i class="fas fa-shopping-bag"></i>
+                <p>Aún no has realizado ninguna compra</p>
+                <a href="{{ url_for('tienda.index') }}" class="btn">
+                    Ir a la Tienda
+                </a>
+            </div>
+            {% endif %}
+        </div>
+        
+        <!-- Historial de Reparaciones -->
+        <div class="historial-container">
+            <h2 class="historial-titulo">
+                <i class="fas fa-tools"></i>
+                Últimas Reparaciones
+            </h2>
+            {% if ultimas_reparaciones %}
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Descripción</th>
+                            <th>Estado</th>
+                            <th>Técnico</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reparacion in ultimas_reparaciones %}
+                        <tr>
+                            <td>{{ reparacion.fecha_solicitud.strftime('%d/%m/%Y') }}</td>
+                            <td>{{ reparacion.descripcion }}</td>
+                            <td>
+                                <span class="badge bg-{{ reparacion.estado|lower }}">
+                                    {{ reparacion.estado }}
+                                </span>
+                            </td>
+                            <td>{{ reparacion.tecnico.nombre if reparacion.tecnico else 'Sin asignar' }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="empty-state">
+                <i class="fas fa-tools"></i>
+                <p>Aún no has solicitado ninguna reparación</p>
+                <a href="{{ url_for('reparaciones.solicitud') }}" class="btn">
+                    Solicitar Reparación
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Modal para cambiar foto de perfil -->
+<div class="modal fade" id="modalCambiarFoto" tabindex="-1" aria-labelledby="cambiarFotoLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cambiarFotoLabel">Cambiar Foto de Perfil</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <form action="{{ url_for('auth.actualizar_foto_perfil') }}" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="fotoPerfil" class="form-label">Selecciona una nueva imagen</label>
+                        <input type="file" class="form-control" id="fotoPerfil" name="foto" accept="image/*" required>
+                    </div>
+                    <div class="mb-3">
+                        <div class="preview-container text-center" style="display: none;">
+                            <p>Vista previa:</p>
+                            <img id="preview-image" src="#" alt="Vista previa" style="max-width: 100%; max-height: 200px; border-radius: 5px;">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Botón para editar foto de perfil
+        const editarFotoBtn = document.getElementById('editarFotoPerfilBtn');
+        
+        if (editarFotoBtn) {
+            editarFotoBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const modalElement = document.getElementById('modalCambiarFoto');
+                if (modalElement) {
+                    const modalCambiarFoto = new bootstrap.Modal(modalElement);
+                    modalCambiarFoto.show();
+                } else {
+                    console.error('El modal #modalCambiarFoto no existe en el DOM');
+                }
+            });
+        }
+        
+        // Previsualizar la foto seleccionada
+        const fotoPerfil = document.getElementById('fotoPerfil');
+        if (fotoPerfil) {
+            fotoPerfil.addEventListener('change', function() {
+                const previewContainer = document.querySelector('.preview-container');
+                const previewImage = document.getElementById('preview-image');
+                
+                if (previewContainer && previewImage && this.files && this.files[0]) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        previewImage.src = e.target.result;
+                        previewContainer.style.display = 'block';
+                    }
+                    
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

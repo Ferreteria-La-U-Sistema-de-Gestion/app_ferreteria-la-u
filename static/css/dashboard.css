@@ -1,0 +1,133 @@
+/* dashboard.css - Estilo refinado */
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #0e1621;
+    color: #dcdcdc;
+    margin: 0;
+    padding: 0;
+}
+
+.dashboard-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+.welcome-section {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.welcome-section h1 {
+    font-size: 2.2rem;
+    color: #e0e0e0;
+    border-bottom: 2px solid #f1c40f;
+    display: inline-block;
+    padding-bottom: 0.3rem;
+    margin-bottom: 0.5rem;
+}
+
+.welcome-section p {
+    font-size: 1rem;
+    color: #bbb;
+}
+
+.card-grid {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+}
+
+.stat-card {
+    background-color: #1a2433;
+    border-radius: 12px;
+    padding: 1.5rem;
+    width: 260px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: scale(1.03);
+}
+
+.stat-card h3 {
+    font-size: 1.2rem;
+    color: #a0aab7;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px dashed #4e5d6c;
+    padding-bottom: 0.3rem;
+}
+
+.stat-card i {
+    font-size: 2rem;
+    color: #3498db;
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.stat-description {
+    font-size: 0.9rem;
+    color: #aaaaaa;
+    margin-top: 0.5rem;
+}
+
+.modules-section {
+    padding-top: 1rem;
+    border-top: 1px solid #2c3e50;
+}
+
+.modules-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #dcdcdc;
+    border-left: 4px solid #f1c40f;
+    padding-left: 0.6rem;
+}
+
+.modules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.2rem;
+}
+
+.module-card {
+    background-color: #1c2736;
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: center;
+    transition: all 0.2s ease;
+    color: #fff;
+    text-decoration: none;
+}
+
+.module-card:hover {
+    background-color: #243448;
+    transform: translateY(-4px);
+}
+
+.module-icon i {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: #f1c40f;
+}
+
+.module-title {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+}
+
+.module-description {
+    font-size: 0.9rem;
+    color: #aaa;
+}

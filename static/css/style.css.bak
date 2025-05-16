@@ -1,0 +1,607 @@
+/* Variables globales */
+:root {
+    /* Bordes redondeados modernos */
+    --border-radius-sm: 0.25rem;
+    --border-radius: 0.5rem;
+    --border-radius-lg: 0.75rem;
+    --border-radius-xl: 1rem;
+    
+    /* Espaciado */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    
+    /* Transición global */
+    --transition: all 0.3s ease;
+}
+
+/* Variables específicas para tema claro */
+/* Eliminado - movido a theme.css */
+
+/* Variables específicas para tema oscuro */
+/* Eliminado - movido a theme.css */
+
+/* Estilos generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: var(--theme-transition);
+    /* Propiedades específicas para evitar parpadeos */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Transición global para el cambio de tema */
+/* Eliminado - movido a theme.css */
+
+main {
+    flex: 1;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-md);
+    font-weight: 600;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.75rem;
+}
+
+h4 {
+    font-size: 1.5rem;
+}
+
+h5 {
+    font-size: 1.25rem;
+}
+
+h6 {
+    font-size: 1rem;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+a:hover {
+    color: var(--primary-dark);
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+p {
+    margin-bottom: var(--spacing-md);
+}
+
+/* Navbar y estilos de navegación */
+.navbar {
+    background-color: var(--card-bg);
+    box-shadow: var(--box-shadow);
+    padding: 0.75rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.navbar-brand img {
+    height: 40px;
+    margin-right: 0.5rem;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-menu a {
+    color: var(--text-color);
+    font-weight: 500;
+    padding: 0.5rem 0;
+    position: relative;
+}
+
+.nav-menu a:hover {
+    color: var(--primary-color);
+}
+
+.nav-menu a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: var(--transition);
+}
+
+.nav-menu a:hover::after {
+    width: 100%;
+}
+
+/* Selector de tema */
+/* Los estilos del selector de tema se han movido a theme.css */
+
+/* Comentarios para documentación */
+/* Estas clases están definidas en theme.css */
+
+.theme-label {
+    /* Eliminado - movido a theme.css */
+}
+
+.light-icon, .dark-icon {
+    /* Eliminado - movido a theme.css */
+}
+
+.light-icon {
+    /* Eliminado - movido a theme.css */
+}
+
+.dark-icon {
+    /* Eliminado - movido a theme.css */
+}
+
+html[data-theme="dark"] .light-icon,
+html[data-theme="light"] .dark-icon {
+    /* Eliminado - movido a theme.css */
+}
+
+html[data-theme="dark"] .dark-icon,
+html[data-theme="light"] .light-icon {
+    /* Eliminado - movido a theme.css */
+}
+
+.theme-checkbox {
+    /* Eliminado - movido a theme.css */
+}
+
+/* Botón del menú móvil */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Formularios y botones */
+input, select, textarea {
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--border-radius-sm);
+    transition: var(--transition);
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.25);
+}
+
+.form-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    border-color: var(--input-border);
+}
+
+.form-control:focus {
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    border-color: var(--primary-color);
+}
+
+.btn {
+    border-radius: var(--border-radius);
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--box-shadow);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: var(--secondary-dark);
+}
+
+.btn-danger {
+    background-color: rgba(var(--danger-color), 1);
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: rgba(var(--danger-color), 0.8);
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+.btn-lg {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.125rem;
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+}
+
+/* Cards */
+.card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: var(--spacing-lg);
+    overflow: hidden;
+    transition: var(--transition);
+    border: 1px solid var(--border-color);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    padding: var(--spacing-md) var(--spacing-lg);
+    background-color: rgba(var(--primary-rgb), 0.1);
+    border-bottom: 1px solid var(--border-color);
+    font-weight: 600;
+}
+
+.card-body {
+    padding: var(--spacing-lg);
+}
+
+.card-footer {
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-top: 1px solid var(--border-color);
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+/* Modales */
+.modal-content {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+.modal-header {
+    border-bottom-color: var(--border-color);
+}
+
+.modal-footer {
+    border-top-color: var(--border-color);
+}
+
+/* Footer */
+.footer {
+    background-color: var(--card-bg);
+    border-top: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: var(--spacing-lg) 0;
+    margin-top: var(--spacing-xl);
+}
+
+.footer h5 {
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-md);
+    color: var(--primary-color);
+}
+
+.footer a {
+    color: var(--text-color);
+    transition: var(--transition);
+}
+
+.footer a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+/* Alertas y mensajes */
+.alert {
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    border-radius: var(--border-radius);
+    border-left: 4px solid transparent;
+}
+
+.alert-success {
+    background-color: rgba(var(--success-color), 0.1);
+    border-left-color: rgba(var(--success-color), 1);
+    color: rgba(var(--success-color), 1);
+}
+
+.alert-danger {
+    background-color: rgba(var(--danger-color), 0.1);
+    border-left-color: rgba(var(--danger-color), 1);
+    color: rgba(var(--danger-color), 1);
+}
+
+.alert-warning {
+    background-color: rgba(var(--warning-color), 0.1);
+    border-left-color: rgba(var(--warning-color), 1);
+    color: rgba(var(--warning-color), 0.9);
+}
+
+.alert-info {
+    background-color: rgba(var(--info-color), 0.1);
+    border-left-color: rgba(var(--info-color), 1);
+    color: rgba(var(--info-color), 1);
+}
+
+/* Utilidades */
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-primary {
+    color: var(--primary-color);
+}
+
+.text-secondary {
+    color: var(--secondary-color);
+}
+
+.text-success {
+    color: rgba(var(--success-color), 1);
+}
+
+.text-danger {
+    color: rgba(var(--danger-color), 1);
+}
+
+.text-warning {
+    color: rgba(var(--warning-color), 1);
+}
+
+.text-info {
+    color: rgba(var(--info-color), 1);
+}
+
+.text-muted {
+    color: var(--text-muted);
+}
+
+.mb-1 { margin-bottom: var(--spacing-xs); }
+.mb-2 { margin-bottom: var(--spacing-sm); }
+.mb-3 { margin-bottom: var(--spacing-md); }
+.mb-4 { margin-bottom: var(--spacing-lg); }
+.mb-5 { margin-bottom: var(--spacing-xl); }
+
+.mt-1 { margin-top: var(--spacing-xs); }
+.mt-2 { margin-top: var(--spacing-sm); }
+.mt-3 { margin-top: var(--spacing-md); }
+.mt-4 { margin-top: var(--spacing-lg); }
+.mt-5 { margin-top: var(--spacing-xl); }
+
+.ml-2 { margin-left: var(--spacing-sm); }
+.mr-2 { margin-right: var(--spacing-sm); }
+
+/* Arreglos específicos para Bootstrap */
+.navbar-light .navbar-nav .nav-link,
+.navbar-dark .navbar-nav .nav-link {
+    color: var(--text-color);
+}
+
+.navbar-light .navbar-toggler-icon,
+.navbar-dark .navbar-toggler-icon {
+    background-color: var(--text-color);
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.4s ease;
+}
+
+/* Media Queries */
+@media (max-width: 992px) {
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+    
+    .nav-menu {
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-btn {
+        display: block;
+    }
+    
+    .nav-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background-color: var(--card-bg);
+        box-shadow: var(--box-shadow);
+        padding: 1rem 0;
+        display: none;
+        z-index: 1000;
+        border-top: 1px solid var(--border-color);
+    }
+    
+    .nav-menu.active {
+        display: flex;
+    }
+    
+    .theme-selector {
+        /* Eliminado - movido a theme.css */
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.75rem;
+    }
+    
+    h3 {
+        font-size: 1.5rem;
+    }
+    
+    .card-body {
+        padding: var(--spacing-md);
+    }
+}
+
+@media (max-width: 576px) {
+    h1 {
+        font-size: 1.75rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    .navbar-brand img {
+        height: 30px;
+    }
+    
+    .footer {
+        text-align: center;
+    }
+    
+    .btn {
+        width: 100%;
+        margin-bottom: var(--spacing-sm);
+    }
+}
+
+/* Estilos para el icono del carrito */
+.cart-icon {
+    display: inline-flex;
+    position: relative;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    color: var(--text-color);
+    text-decoration: none;
+    margin-right: 10px;
+    transition: color 0.3s;
+}
+
+.cart-icon:hover {
+    color: var(--primary-color);
+}
+
+.cart-counter {
+    position: absolute;
+    top: 0;
+    right: -5px;
+    font-size: 0.65rem;
+    padding: 0.25rem 0.45rem;
+    background-color: var(--danger-color);
+    color: white;
+    border-radius: 50%;
+    border: 2px solid var(--body-bg);
+    transform: scale(0.8);
+}
+
+/* Fin de estilos del carrito */
