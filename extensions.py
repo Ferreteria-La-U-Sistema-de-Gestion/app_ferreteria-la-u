@@ -41,16 +41,17 @@ def init_extensions(app):
     # Registrar la función de limpieza para cerrar conexiones
     app.teardown_appcontext(close_mysql_connection)
 
-    # Configuración del correo electrónico - más flexible para cualquier proveedor
+   # Configuración del correo electrónico - más flexible para cualquier proveedor
     app.config.setdefault('MAIL_SERVER', os.environ.get('MAIL_SERVER', 'smtp.gmail.com'))
     app.config.setdefault('MAIL_PORT', int(os.environ.get('MAIL_PORT', 587)))
     app.config.setdefault('MAIL_USE_TLS', os.environ.get('MAIL_USE_TLS', 'True').lower() == 'true')
     app.config.setdefault('MAIL_USE_SSL', os.environ.get('MAIL_USE_SSL', 'False').lower() == 'true')
     app.config.setdefault('MAIL_USERNAME', os.environ.get('MAIL_USERNAME', ''))
     app.config.setdefault('MAIL_PASSWORD', os.environ.get('MAIL_PASSWORD', ''))
-    app.config.setdefault('MAIL_DEFAULT_SENDER', os.environ.get('MAIL_DEFAULT_SENDER', 'Ferreteria La U <noreply@example.com>'))
+    app.config.setdefault('MAIL_DEFAULT_SENDER', os.environ.get('MAIL_DEFAULT_SENDER', 'Ferreteria La U     <noreply@example.com>'))
     app.config.setdefault('MAIL_MAX_EMAILS', int(os.environ.get('MAIL_MAX_EMAILS', 50)))
-    app.config.setdefault('MAIL_ASCII_ATTACHMENTS', os.environ.get('MAIL_ASCII_ATTACHMENTS', 'False').lower() == 'true')
+    app.config.setdefault('MAIL_ASCII_ATTACHMENTS', os.environ.get('MAIL_ASCII_ATTACHMENTS', 'False').lower()     == 'true')
+
     
     # Inicializar extensiones con la aplicación
     bcrypt.init_app(app)

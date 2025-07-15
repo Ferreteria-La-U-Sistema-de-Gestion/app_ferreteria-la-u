@@ -623,6 +623,21 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 
+-- Tabla de historial de reparaciones
+CREATE TABLE IF NOT EXISTS historial_reparaciones (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    reparacion_id INT NOT NULL,
+    estado_anterior VARCHAR(20) NOT NULL,
+    estado_nuevo VARCHAR(20) NOT NULL,
+    descripcion TEXT,
+    usuario_id INT NOT NULL,
+    fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (reparacion_id) REFERENCES reparaciones(id),
+    FOREIGN KEY (usuario_id) REFERENCES empleados(id)
+);
+
+
+
 -- ----------------------------------------------------------------------------
 -- Table bzm5uc8abvbfoesn7g5v.reset_tokens
 -- ----------------------------------------------------------------------------

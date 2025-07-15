@@ -64,8 +64,8 @@ La aplicación estará disponible en http://localhost:5000
 
 ## Usuario administrador por defecto
 
-- Email: admin@ferreterialaU.com
-- Contraseña: admin123
+- Email: alfonsobrian7@gmail.com
+- Contraseña: Rokmetall99@,
 
 ## Contribuir
 

@@ -1,7 +1,7 @@
 """
 Módulo de conexión y operaciones de base de datos MySQL para la Ferretería
 """
-import MySQLdb
+import pymysql
 from flask import current_app, g
 from extensions import mysql
 import os
@@ -14,48 +14,34 @@ def get_connection():
     Si no, crea una nueva conexión desde el pool.
     """
     if 'db' not in g:
-        g.db = mysql.connection
+        g.db = pymysql.connect(
+            host=os.environ.get('MYSQL_HOST'),
+            user=os.environ.get('MYSQL_USER'),
+            password=os.environ.get('MYSQL_PASSWORD'),
+            database=os.environ.get('MYSQL_DB'),
+            port=int(os.environ.get('MYSQL_PORT', 3306)),
+            charset='utf8mb4',
+            cursorclass=pymysql.cursors.DictCursor
+        )
     return g.db
 
-def get_cursor(dictionary=False):
-    """
-    Obtiene un cursor para ejecutar consultas SQL.
-    Reutiliza la conexión del contexto actual.
-    
-    Args:
-        dictionary (bool): Si es True, devuelve resultados como diccionarios.
-    
-    Returns:
-        cursor: Un cursor de MySQL.
-    """
+def get_cursor(dictionary=True):
     conn = get_connection()
     if dictionary:
-        return conn.cursor(MySQLdb.cursors.DictCursor)
+        return conn.cursor(pymysql.cursors.DictCursor)
     return conn.cursor()
 
 def close_connection(e=None):
-    """
-    Cierra la conexión a la base de datos y la devuelve al pool.
-    Esta función debe ser llamada cuando finaliza una solicitud.
-    Maneja de forma segura cualquier error al cerrar la conexión.
-    """
     try:
         db = g.pop('db', None)
         if db is not None:
             try:
                 db.close()
-            except MySQLdb.OperationalError as e:
-                # Ignorar específicamente el error 2006 (MySQL server has gone away)
+            except pymysql.OperationalError as e:
                 if e.args[0] != 2006: 
                     print(f"Aviso: Error operacional de MySQL al cerrar la conexión: {e}")
-            except Exception as e:
-                # Capturamos y mostramos el error pero no lo propagamos para no interrumpir
-                # el flujo normal del programa cuando la conexión ya está cerrada o tiene problemas
-                print(f"Aviso: Error al cerrar la conexión a la base de datos: {e}")
     except Exception as e:
-        # Ignoramos el error para evitar que la aplicación falle al cerrar
-        print(f"Aviso: Error general al gestionar la conexión a la base de datos: {e}")
-        pass
+        print(f"Error al cerrar la conexión de base de datos: {e}")
 
 def init_db():
     """
@@ -437,4 +423,4 @@ def restaurar_backup(ruta_archivo):
     
     except Exception as e:
         print(f"Error al restaurar copia de seguridad: {e}")
-        return False 
+        return False

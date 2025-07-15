@@ -137,11 +137,50 @@
             font-size: 1.5rem;
         }
     }
+
+    /* Estilos para tema oscuro */
+    [data-theme="dark"] .auth-container {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+        background-color: #1a2b47;
+        color: #fff;
+    }
+
+    [data-theme="dark"] input {
+        background-color: var(--input-bg);
+        border-color: var(--input-border);
+        color: #fff;
+    }
+
+    [data-theme="dark"] input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.4);
+    }
+    
+    /* Forzar tema oscuro en el contenedor de autenticación */
+    .auth-container {
+        background-color: #1a2b47;
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+    }
+    
+    .auth-container input {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
+        color: #fff;
+    }
+    
+    .auth-container input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+    
+    .auth-container .auth-links a {
+        color: var(--secondary-color);
+    }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="auth-container">
+<div class="auth-container" data-theme="dark">
     <div class="cliente-icon">
         <i class="fas fa-user"></i>
     </div>

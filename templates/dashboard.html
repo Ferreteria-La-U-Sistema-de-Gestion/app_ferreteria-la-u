@@ -14,9 +14,27 @@
     </div>
     
     <div class="card-grid">
-       
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+            <div class="stat-text">
+                <h3>Ventas</h3>
+                <div class="stat-value">{{ stats_ventas.total }}</div>
+                <p>{{ stats_ventas.hoy }} hoy</p>
+            </div>
+        </div>
         
-       
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div class="stat-text">
+                <h3>Stock Bajo</h3>
+                <div class="stat-value">{{ productos_bajo_stock.total }}</div>
+                <p>Productos para reabastecer</p>
+            </div>
+        </div>
         
         <div class="stat-card">
             <div class="stat-icon">
@@ -24,17 +42,6 @@
             </div>
             <div class="stat-text">
                 <h3>Reparaciones Pendientes</h3>
-                <div class="stat-value">{{ reparaciones_pendientes.total }}</div>
-                <p>{{ reparaciones_pendientes.recibidas }} recibidas, {{ reparaciones_pendientes.en_progreso }} en progreso</p>
-            </div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-icon">
-                <i class="fas fa-tools"></i>
-            </div>
-            <div class="stat-text">
-                <h3>Reparaciones Exitosas</h3>
                 <div class="stat-value">{{ reparaciones_pendientes.total }}</div>
                 <p>{{ reparaciones_pendientes.recibidas }} recibidas, {{ reparaciones_pendientes.en_progreso }} en progreso</p>
             </div>
@@ -96,7 +103,7 @@
             </div>
             {% endif %}
             
-            {% if current_user.cargo_nombre == 'Técnico' %}
+            {% if 'reparaciones' in modulos_permitidos or current_user.es_admin or (current_user.cargo_nombre is defined and current_user.cargo_nombre == 'Técnico') %}
             <div class="col-md-4 col-sm-6 mb-4">
                 <a href="{{ url_for('reparaciones.mis_reparaciones') }}" class="module-card module-reparaciones-tecnico">
                     <div class="module-icon">
@@ -150,4 +157,4 @@
         </div>
     </div>
 </div>
-{% endblock %} 
+{% endblock %}

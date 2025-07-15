@@ -5,169 +5,154 @@
 {% block extra_css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/reparaciones/lista.css') }}">
 <style>
-    .tecnico-dashboard {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-        margin-bottom: 1.5rem;
-    }
-    
-    .tecnico-stat {
-        flex: 1;
-        background: var(--card-bg);
-        border-radius: 10px;
-        padding: 1rem;
-        box-shadow: var(--box-shadow);
-        min-width: 200px;
-        text-align: center;
-    }
-    
-    .tecnico-stat h4 {
-        margin-bottom: 0.5rem;
-        color: var(--text-color-light);
-    }
-    
-    .tecnico-stat .stat-value {
-        font-size: 1.8rem;
-        font-weight: 700;
-        color: var(--primary-color);
-    }
-    
-    .tecnico-header {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-        color: white;
-        padding: 1.5rem;
-        border-radius: 10px;
-        margin-bottom: 1.5rem;
-        box-shadow: var(--box-shadow);
-    }
-    
-    .tecnico-info {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    
-    .tecnico-info-left {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-    }
-    
-    .tecnico-avatar {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        background-color: rgba(255,255,255,0.2);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.5rem;
-    }
-    
-    .tecnico-data h3 {
-        margin: 0;
-        font-weight: 600;
-    }
-    
-    .tecnico-data p {
-        margin: 0;
-        opacity: 0.9;
-    }
-    
-    .status-filters {
-        display: flex;
-        gap: 0.5rem;
-        margin-bottom: 1rem;
-        flex-wrap: wrap;
-    }
-    
-    .status-filter {
-        padding: 0.5rem 1rem;
-        border-radius: 20px;
-        background-color: var(--card-bg);
-        cursor: pointer;
-        transition: all 0.3s;
-        border: 1px solid var(--border-color);
-    }
-    
-    .status-filter.active {
-        background-color: var(--primary-color);
-        color: white;
-    }
-    
-    .reparacion-card {
-        display: flex;
-        flex-direction: column;
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: var(--box-shadow);
-        margin-bottom: 1rem;
-        background-color: var(--card-bg);
-        transition: transform 0.3s;
-    }
-    
-    .reparacion-card:hover {
-        transform: translateY(-3px);
-    }
-    
-    .reparacion-header {
-        background-color: var(--neutral-bg);
-        padding: 1rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    
-    .reparacion-id {
-        font-weight: 700;
-        color: var(--primary-color);
-    }
-    
-    .reparacion-content {
-        padding: 1rem;
-    }
-    
-    .reparacion-info {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-        margin-bottom: 1rem;
-    }
-    
-    .reparacion-info-item {
-        flex: 1;
-        min-width: 200px;
-    }
-    
-    .reparacion-info-label {
-        font-weight: 600;
-        color: var(--text-color-light);
-        margin-bottom: 0.25rem;
-    }
-    
-    .reparacion-footer {
-        padding: 0.75rem 1rem;
-        background-color: var(--neutral-bg);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    
-    .badge {
-        padding: 0.35rem 0.75rem;
-        border-radius: 20px;
-        font-size: 0.8rem;
-        font-weight: 500;
-    }
-    
-    .badge-recibido { background-color: #e7f5ff; color: #1c7ed6; }
-    .badge-diagnostico { background-color: #e3fafc; color: #0c8599; }
-    .badge-espera_repuestos { background-color: #fff9db; color: #f08c00; }
-    .badge-reparacion { background-color: #f3f0ff; color: #7048e8; }
-    .badge-listo { background-color: #ebfbee; color: #37b24d; }
-    .badge-entregado { background-color: #d3f9d8; color: #2b8a3e; }
-    .badge-cancelado { background-color: #ffe3e3; color: #e03131; }
+/* Dashboard y estadísticas */
+.tecnico-dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+.tecnico-stat {
+    flex: 1;
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: var(--box-shadow);
+    min-width: 200px;
+    text-align: center;
+}
+.tecnico-stat h4 {
+    margin-bottom: 0.5rem;
+    color: var(--text-color-light);
+}
+.tecnico-stat .stat-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* Header técnico */
+.tecnico-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--box-shadow);
+}
+.tecnico-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.tecnico-info-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.tecnico-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+.tecnico-data h3 {
+    margin: 0;
+    font-weight: 600;
+}
+.tecnico-data p {
+    margin: 0;
+    opacity: 0.9;
+}
+
+/* Filtros de estado */
+.status-filters {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+.status-filter {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    background-color: var(--card-bg);
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 1px solid var(--border-color);
+}
+.status-filter.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Tarjetas de reparación */
+.reparacion-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    margin-bottom: 1rem;
+    background-color: var(--card-bg);
+    transition: transform 0.3s;
+}
+.reparacion-card:hover {
+    transform: translateY(-3px);
+}
+.reparacion-header {
+    background-color: var(--neutral-bg);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.reparacion-id {
+    font-weight: 700;
+    color: var(--primary-color);
+}
+.reparacion-content {
+    padding: 1rem;
+}
+.reparacion-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+.reparacion-info-item {
+    flex: 1;
+    min-width: 200px;
+}
+.reparacion-info-label {
+    font-weight: 600;
+    color: var(--text-color-light);
+    margin-bottom: 0.25rem;
+}
+.reparacion-footer {
+    padding: 0.75rem 1rem;
+    background-color: var(--neutral-bg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.badge {
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+/* Colores por estado */
+.badge-recibido { background-color: #e7f5ff; color: #1c7ed6; }
+.badge-diagnostico { background-color: #e3fafc; color: #0c8599; }
+.badge-espera_repuestos { background-color: #fff9db; color: #f08c00; }
+.badge-reparacion { background-color: #f3f0ff; color: #7048e8; }
+.badge-listo { background-color: #ebfbee; color: #37b24d; }
+.badge-entregado { background-color: #d3f9d8; color: #2b8a3e; }
+.badge-cancelado { background-color: #ffe3e3; color: #e03131; }
 </style>
 {% endblock %}
 
@@ -188,6 +173,7 @@
         </div>
     </div>
     
+    <!-- Estadísticas -->
     <div class="tecnico-dashboard">
         <div class="tecnico-stat">
             <h4>Asignadas</h4>
@@ -207,10 +193,10 @@
         </div>
     </div>
 
+    <!-- Encabezado y Filtros -->
     <div class="section-header">
         <h1>Mis Reparaciones</h1>
     </div>
-    
     <div class="status-filters">
         <div class="status-filter active" data-filter="all">Todas</div>
         <div class="status-filter" data-filter="recibido">Recibidas</div>
@@ -219,7 +205,8 @@
         <div class="status-filter" data-filter="espera_repuestos">Esperando repuestos</div>
         <div class="status-filter" data-filter="listo">Listas</div>
     </div>
-    
+
+    <!-- Lista de Reparaciones -->
     {% if reparaciones %}
     <div class="reparaciones-grid">
         {% for reparacion in reparaciones %}
@@ -271,36 +258,23 @@
 
 {% block extra_js %}
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Filtrado por estado
-        const statusFilters = document.querySelectorAll('.status-filter');
-        const reparacionCards = document.querySelectorAll('.reparacion-card');
-        
-        statusFilters.forEach(filter => {
-            filter.addEventListener('click', function() {
-                // Quitar clase active de todos los filtros
-                statusFilters.forEach(f => f.classList.remove('active'));
-                
-                // Añadir clase active al filtro seleccionado
-                this.classList.add('active');
-                
-                const filterValue = this.getAttribute('data-filter');
-                
-                // Mostrar/ocultar tarjetas según el filtro
-                reparacionCards.forEach(card => {
-                    if (filterValue === 'all') {
-                        card.style.display = 'flex';
-                    } else {
-                        const cardEstado = card.getAttribute('data-estado');
-                        if (cardEstado === filterValue) {
-                            card.style.display = 'flex';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    }
-                });
+document.addEventListener('DOMContentLoaded', function () {
+    const filters = document.querySelectorAll('.status-filter');
+    const cards = document.querySelectorAll('.reparacion-card');
+
+    filters.forEach(filter => {
+        filter.addEventListener('click', function () {
+            filters.forEach(f => f.classList.remove('active'));
+            this.classList.add('active');
+
+            const value = this.getAttribute('data-filter');
+
+            cards.forEach(card => {
+                const estado = card.getAttribute('data-estado');
+                card.style.display = (value === 'all' || estado === value) ? 'flex' : 'none';
             });
         });
     });
+});
 </script>
-{% endblock %} 
+{% endblock %}

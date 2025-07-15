@@ -1486,7 +1486,7 @@ def perfil():
 def perfil_tecnico():
     """Muestra el perfil del técnico con estadísticas"""
     # Verificar que el usuario sea un técnico
-    if not hasattr(current_user, 'cargo_nombre') or current_user.cargo_nombre != 'Técnico':
+    if not current_user.es_tecnico():
         flash('Esta página es solo para técnicos', 'warning')
         return redirect(url_for('main.dashboard'))
     
@@ -1518,16 +1518,32 @@ def perfil_tecnico():
         """, (current_user.id,))
         completadas = cursor.fetchone()['completadas']
         
+        # Obtener estadísticas de ventas para el empleado
+        cursor.execute("""
+            SELECT COUNT(*) as total_ventas, COALESCE(SUM(total), 0) as monto_total,
+            DATEDIFF(NOW(), MIN(fecha)) as dias_activo
+            FROM ventas
+            WHERE empleado_id = %s
+        """, (current_user.id,))
+        stats_ventas = cursor.fetchone()
+        
         cursor.close()
         
-        stats = {
+        # Preparar datos para la plantilla empleados/perfil.html
+        stats_reparaciones = {
             'total_reparaciones': total,
-            'en_proceso': en_proceso,
-            'completadas': completadas
+            'reparaciones_activas': en_proceso,
+            'reparaciones_completadas': completadas
         }
         
-        return render_template('auth/perfil_tecnico.html', stats=stats)
+        return render_template('empleados/perfil.html', 
+                              empleado=current_user, 
+                              stats_ventas=stats_ventas, 
+                              stats_reparaciones=stats_reparaciones)
     except Exception as e:
         print(f"Error al obtener estadísticas: {e}")
         flash('Error al obtener las estadísticas', 'danger')
-        return render_template('auth/perfil_tecnico.html', stats={})
+        return render_template('empleados/perfil.html', 
+                              empleado=current_user, 
+                              stats_ventas={'total_ventas': 0, 'monto_total': 0, 'dias_activo': 0}, 
+                              stats_reparaciones={'total_reparaciones': 0, 'reparaciones_activas': 0, 'reparaciones_completadas': 0})

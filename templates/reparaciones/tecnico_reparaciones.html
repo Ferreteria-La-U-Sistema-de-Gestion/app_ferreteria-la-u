@@ -699,3 +699,92 @@
     });
 </script>
 {% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <h1 class="page-title">Mi Panel de Reparaciones</h1>
+    
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-number">{{ stats.total }}</div>
+            <div class="stat-label">Total</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ stats.recibido }}</div>
+            <div class="stat-label">Por Revisar</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ stats.diagnostico }}</div>
+            <div class="stat-label">En Diagnóstico</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ stats.reparacion }}</div>
+            <div class="stat-label">En Reparación</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ stats.listo }}</div>
+            <div class="stat-label">Listos</div>
+        </div>
+    </div>
+    
+    <div class="reparaciones-list">
+        {% for reparacion in reparaciones %}
+        <div class="reparacion-card">
+            <div class="reparacion-header">
+                <h3>{{ reparacion.electrodomestico }} - {{ reparacion.marca }} {{ reparacion.modelo }}</h3>
+                <span class="estado-badge estado-{{ reparacion.estado }}">{{ reparacion.estado }}</span>
+            </div>
+            
+            <div class="reparacion-details">
+                <p><strong>Problema:</strong> {{ reparacion.problema }}</p>
+                <p><strong>Diagnóstico:</strong> {{ reparacion.diagnostico or 'Pendiente' }}</p>
+                <p><strong>Costo Estimado:</strong> ${{ reparacion.costo_estimado }}</p>
+                <p><strong>Fecha Recepción:</strong> {{ reparacion.fecha_recepcion }}</p>
+                <p><strong>Fecha Entrega Estimada:</strong> {{ reparacion.fecha_entrega_estimada }}</p>
+            </div>
+
+            <div class="chat-section">
+                <h4>Chat con el Cliente</h4>
+                <div class="chat-messages" id="chat-{{ reparacion.id }}">
+                    {% for mensaje in reparacion.mensajes %}
+                    <div class="mensaje {{ 'mensaje-tecnico' if mensaje.es_tecnico else 'mensaje-cliente' }}">
+                        <p>{{ mensaje.contenido }}</p>
+                        <small>{{ mensaje.fecha }}</small>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="chat-input">
+                    <input type="text" class="message-input" placeholder="Escribe un mensaje...">
+                    <button class="btn btn-primary" onclick="enviarMensaje({{ reparacion.id }})">Enviar</button>
+                </div>
+            </div>
+
+            <div class="actions mt-3">
+                <button class="btn btn-primary" onclick="actualizarDiagnostico({{ reparacion.id }})">
+                    Actualizar Diagnóstico
+                </button>
+                <button class="btn btn-success" onclick="marcarCompletada({{ reparacion.id }})">
+                    Marcar como Completada
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function actualizarDiagnostico(reparacionId) {
+    // Implementar lógica para actualizar diagnóstico
+}
+
+function marcarCompletada(reparacionId) {
+    // Implementar lógica para marcar como completada
+}
+
+function enviarMensaje(reparacionId) {
+    // Implementar lógica para enviar mensaje
+}
+</script>
+{% endblock %}
